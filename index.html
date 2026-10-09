@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFFFFF" id="themeColorMeta">
+  <meta name="description" content="MediCore — The Art of Healing. Your personal health copilot.">
+  <title>MediCore — The Art of Healing</title>
+  <link rel="icon" type="image/png" href="assets/medicore-icon.png">
+  <link rel="apple-touch-icon" href="assets/medicore-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/demo-dataset.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="login.js"></script>
+</head>
+<body>
+  <section id="demoLogin" class="demo-login" aria-labelledby="loginTitle">
+    <div class="login-glow login-glow-one" aria-hidden="true"></div><div class="login-glow login-glow-two" aria-hidden="true"></div>
+    <div class="login-card">
+      <div class="login-brand"><img src="assets/medicore-logo.png" alt="MediCore logo"><span>THE ART OF HEALING</span></div>
+      <p class="eyebrow">SYNTHETIC PATIENT DEMO</p>
+      <h1 id="loginTitle">Welcome to MediCore</h1>
+      <p class="login-subtitle">Choose a fictional patient profile to explore the working demo. No password or real patient account is used.</p>
+      <label for="patientSelect">Select patient profile</label>
+      <select id="patientSelect" size="1" aria-describedby="syntheticNotice"><option value="">Loading synthetic profiles…</option></select>
+      <div id="patientPreview" class="patient-preview" aria-live="polite"><p>Select a profile to preview its demo details.</p></div>
+      <p id="syntheticNotice" class="synthetic-notice"><strong>Demo safety:</strong> All dataset entries are fictional and not for medical use. Information may be incomplete and should not be treated as medical advice.</p>
+      <button id="enterDemo" class="btn btn-primary login-submit" type="button" disabled>Open patient workspace <span aria-hidden="true">→</span></button>
+      <button id="exploreAllData" class="login-secondary" type="button">View dataset contents</button>
+      <div id="datasetDetails" class="dataset-details" hidden></div>
+      <p class="login-footnote"><span class="privacy-dot"></span> Local frontend demo · No real authentication · No backend connection</p>
+    </div>
+  </section>
+  <div class="ambient-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="MediCore home"><img class="brand-logo" src="assets/medicore-logo.png" alt="MediCore — The Art of Healing"><span class="brand-copy"><strong>MediCore</strong><small>THE ART OF HEALING</small></span></a>
+      <div class="profile-mini"><div class="avatar">RS</div><div class="profile-mini-copy"><strong id="sidebarName">Rohit Sharma</strong><small>Personal health space</small></div><span class="status-dot" title="Local demo"></span></div>
+      <nav class="nav-list" id="navList">
+        <span class="nav-label">WORKSPACE</span>
+        <a href="#overview" data-route="overview"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>Overview dashboard</a>
+        <a href="#assistant" data-route="assistant"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="M19 16v5M16.5 18.5h5"/></svg></span>AI health assistant</a>
+        <a href="#records" data-route="records"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span>Medical records & upload</a>
+        <a href="#checkup" data-route="checkup"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M8 15h2l1.5-2 2 4 1.5-2H17"/></svg></span>Weekly AI checkup</a>
+        <a href="#medicines" data-route="medicines"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M10.5 3.5a5 5 0 0 1 7 7l-7 7a5 5 0 0 1-7-7l7-7Z"/><path d="m7 7 7 7"/></svg></span>Medicine reminders</a>
+        <a href="#timeline" data-route="timeline"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 6h4M4 12h4M4 18h4M11 6h9M11 12h9M11 18h9"/><circle cx="6" cy="6" r="1"/><circle cx="6" cy="12" r="1"/><circle cx="6" cy="18" r="1"/></svg></span>Health timeline</a>
+        <a href="#symptoms" data-route="symptoms"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M20.8 8.8c0 5-8.8 11-8.8 11s-8.8-6-8.8-11A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/></svg></span>Symptom checker</a>
+        <a href="#consultation" data-route="consultation"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M6 3h9l4 4v14H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M8 12h8M8 16h8"/></svg></span>Consultation summary</a>
+        <span class="nav-label nav-label-spaced">YOUR SPACE</span>
+        <a href="#profile" data-route="profile"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Personal health profile</a>
+        <a href="#settings" data-route="settings"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 3.1-2.2-.5a7.5 7.5 0 0 1-1.7 1l-.5 2.1h-3.2l-.5-2.1a7.5 7.5 0 0 1-1.7-1l-2.2.5-1.8-3.1.1-.1a1.7 1.7 0 0 0 .3-1.9 7.5 7.5 0 0 1-.8-1.7l-2-.9v-3.6l2-.9a7.5 7.5 0 0 1 .8-1.7 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-3.1 2.2.5a7.5 7.5 0 0 1 1.7-1l.5-2.1h3.2l.5 2.1a7.5 7.5 0 0 1 1.7 1l2.2-.5 1.8 3.1-.1.1a1.7 1.7 0 0 0-.3 1.9 7.5 7.5 0 0 1 .8 1.7l2 .9v3.6l-2 .9a7.5 7.5 0 0 1-.8 1.7Z"/></svg></span>Settings & privacy</a>
+      </nav>
+      <div class="sidebar-footer"><span class="shield" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 19 6v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><div><strong>Privacy-first prototype</strong><small>Demo data stays in this browser</small></div></div>
+    </aside>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+    <main class="main-area">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="menuToggle" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="pageCrumb">Overview dashboard</strong></div>
+        <div class="topbar-actions"><span class="demo-pill"><span class="status-dot"></span> DEMO MODE</span><button class="language-toggle" id="languageToggle" type="button" aria-label="Change website language" title="Change language">हि हिन्दी</button><button class="icon-button" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button><button class="user-button" id="userButton"><span class="avatar avatar-small">RS</span><span class="user-name" id="topbarName">Rohit Sharma</span><span>⌄</span></button><button class="logout-button" id="logoutButton" type="button" aria-label="Log out and return to patient selection" title="Log out"><span aria-hidden="true">↪</span><span class="logout-label">Log out</span></button></div>
+      </header>
+      <section class="page-wrap" id="pageContent" tabindex="-1" aria-live="polite"></section>
+      <footer class="app-footer" aria-label="Website footer">
+        <div class="footer-grid">
+          <div class="footer-brand-column">
+            <a class="footer-brand-mark" href="#overview" aria-label="MediCore home"><img src="assets/medicore-logo.png" alt="MediCore — The Art of Healing"></a>
+            <p class="footer-slogan">THE ART OF HEALING</p>
+            <p class="footer-about"><strong>Health information, made clearer.</strong><br>MediCore helps you organize health records, understand common medical terms, and prepare for more informed conversations with your care team.</p>
+          </div>
+          <div><h3>Workspace</h3><nav class="footer-links" aria-label="Workspace links"><a href="#overview" data-route="overview">Overview</a><a href="#records" data-route="records">Medical records</a><a href="#timeline" data-route="timeline">Health timeline</a><a href="#medicines" data-route="medicines">Medicine list</a></nav></div>
+          <div><h3>Explore</h3><nav class="footer-links" aria-label="Explore links"><a href="#assistant" data-route="assistant">AI health assistant</a><a href="#checkup" data-route="checkup">Wellness check-in</a><a href="#consultation" data-route="consultation">Visit preparation</a><a href="#profile" data-route="profile">Personal profile</a></nav></div>
+          <div><h3>Help & safety</h3><nav class="footer-links" aria-label="Help and safety links"><a href="#settings" data-route="settings">Privacy & settings</a><a href="#symptoms" data-route="symptoms">Symptom notes</a><a href="#assistant" data-route="assistant">Ask MediCore</a></nav><p class="footer-about">Prototype only. Not for emergencies, diagnosis, or medication decisions.</p></div>
+        </div>
+        <div class="footer-bottom"><span>© 2026 MediCore · Personal Health Copilot</span><span>For information only · Not a medical diagnosis · Use demo data only</span></div>
+      </footer>
+    </main>
+  </div>
+  <!-- Persistent, friendly AI help button available on every screen -->
+  <section class="smaran-help" id="smaranHelp" aria-label="MediCore quick help">
+    <div class="help-panel" id="helpPanel" role="dialog" aria-labelledby="helpTitle" aria-modal="false" hidden>
+      <div class="help-panel-head">
+        <div class="help-avatar" aria-hidden="true">✦</div>
+        <div class="help-heading"><strong id="helpTitle">Ask MediCore</strong><span>Simple help for your health workspace</span></div>
+        <button class="help-close" id="helpClose" type="button" aria-label="Close help">×</button>
+      </div>
+      <div class="help-intro"><span class="help-sparkle" aria-hidden="true">✧</span><div><strong>Hi! What would you like help with?</strong><p>Choose a shortcut or type a question in your own words.</p></div></div>
+      <div class="help-shortcuts" aria-label="Suggested questions">
+        <button type="button" data-help-prompt="How do I upload a medical report?">📄 Upload a report</button>
+        <button type="button" data-help-prompt="Explain medical words in simple language.">💬 Explain medical words</button>
+        <button type="button" data-help-prompt="Help me prepare questions for my doctor.">🩺 Prepare for a doctor visit</button>
+        <button type="button" data-help-prompt="Where can I find my health timeline?">🗓 Find my timeline</button>
+      </div>
+      <div class="help-messages" id="helpMessages" aria-live="polite">
+        <div class="help-message assistant-message">I can show you around the website and offer general information. I’m a demo assistant, not a doctor or a live AI service.</div>
+      </div>
+      <form class="help-form" id="helpForm">
+        <label class="sr-only" for="helpInput">Type your question</label>
+        <textarea id="helpInput" rows="2" maxlength="500" placeholder="Type your question…" required></textarea>
+        <button type="submit" aria-label="Send question">Send ↑</button>
+      </form>
+      <div class="help-panel-foot"><button type="button" id="easyReadToggle" aria-pressed="false">Aa Make text easier to read</button><span>Demo help · Not medical advice</span></div>
+    </div>
+    <button class="help-launcher" id="helpLauncher" type="button" aria-expanded="false" aria-controls="helpPanel" aria-label="Open MediCore AI health assistant">
+      <span class="launcher-icon" aria-hidden="true">✦</span><span class="launcher-label">Ask MediCore</span><span class="launcher-dot" aria-hidden="true"></span>
+    </button>
+  </section>
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+  <dialog class="modal" id="modal"><div class="modal-head"><div><p class="eyebrow">MEDICORE</p><h2 id="modalTitle">Confirm action</h2></div><button class="icon-button" id="modalClose" aria-label="Close dialog">×</button></div><div id="modalBody"></div></dialog>
+</body>
+</html>
