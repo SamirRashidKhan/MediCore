@@ -65,6 +65,7 @@ body:not(.dark-mode) {
   color-scheme: light;
   --primary: #8DB4D6;
   --primary-dark: #7099bd;
+  --primary-ink: #365D7D;
   --primary-soft: #D6E6F2;
   --mint: #8DB4D6;
   --blue: #8DB4D6;
@@ -83,6 +84,7 @@ body.dark-mode {
   color-scheme: dark;
   --primary: #A7B6D0;
   --primary-dark: #c0cce0;
+  --primary-ink: #D0D9E7;
   --primary-soft: #1E2F4F;
   --mint: #A7B6D0;
   --blue: #A7B6D0;
@@ -174,7 +176,8 @@ textarea:focus-visible, select:focus-visible { outline: 3px solid var(--focus); 
 
 
 /* MediCore brand and visual atmosphere */
-:root { --spot-x: 50vw; --spot-y: 35vh; }
+:root { --spot-x: 50vw; --spot-y: 35vh; --spotlight-rgb: 15,118,110; }
+body.dark-mode { --spotlight-rgb: 167,182,208; }
 html, body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 body { position: relative; isolation: isolate; }
 .brand { gap: 8px; align-items: center; }
@@ -184,13 +187,12 @@ body { position: relative; isolation: isolate; }
 .brand small { font-size:8px; letter-spacing:1px; }
 .footer-brand-mark { display:inline-flex; align-items:center; justify-content:center; background:#05070d; padding:8px 12px; border:1px solid rgba(34,211,238,.22); box-shadow:0 0 28px rgba(34,211,238,.08); }
 .footer-brand-mark img { display:block; width:168px; height:88px; object-fit:contain; }
-.footer-slogan { margin:10px 0 0; font-size:10px; font-weight:800; letter-spacing:2px; color:var(--primary); }
+.footer-slogan { margin:10px 0 0; font-size:10px; font-weight:800; letter-spacing:2px; color:var(--primary-ink); }
 .brand:hover .brand-logo { filter:drop-shadow(0 0 8px rgba(34,211,238,.25)); }
 .app-shell { position:relative; z-index:1; }
 body::before {
   content:""; position:fixed; inset:0; pointer-events:none; z-index:50;
-  background:radial-gradient(440px circle at var(--spot-x) var(--spot-y), rgba(34,211,238,.075), transparent 68%);
-  opacity:.75; transition:opacity .25s ease;
+  background:radial-gradient(480px circle at var(--spot-x) var(--spot-y), rgba(var(--spotlight-rgb),.1), transparent 70%);
 }
 body::after {
   content:""; position:fixed; width:360px; height:360px; right:-160px; top:18%;
@@ -205,7 +207,7 @@ body::after {
 .ambient-orbs span:nth-child(2) { right:10%; top:58%; width:230px; height:230px; background:#A7B6D0; animation-delay:-8s; }
 .ambient-orbs span:nth-child(3) { left:8%; bottom:4%; width:150px; height:150px; animation-delay:-14s; }
 .dark-mode .ambient-orbs span { opacity:.12; background:#A7B6D0; }
-body.dark-mode::before { background:radial-gradient(440px circle at var(--spot-x) var(--spot-y), rgba(167,182,208,.11), transparent 68%); }
+body.dark-mode::before { background:radial-gradient(480px circle at var(--spot-x) var(--spot-y), rgba(var(--spotlight-rgb),.13), transparent 70%); }
 @keyframes mediCoreFloat { from { transform:translate3d(-12px,-10px,0) scale(.94); } to { transform:translate3d(30px,24px,0) scale(1.12); } }
 @keyframes mediCoreDrift { from { transform:translate3d(0,-10px,0) rotate(-8deg); } to { transform:translate3d(-45px,35px,0) rotate(14deg); } }
 @media(max-width:620px) {
@@ -220,16 +222,18 @@ body.dark-mode::before { background:radial-gradient(440px circle at var(--spot-x
 
 
 /* Synthetic-patient demo login */
-.demo-login{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:auto;padding:28px 16px;background:var(--bg,#f8fafc);color:var(--text,#0f172a)}
+.demo-login{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:auto;padding:28px 16px;background:var(--bg,#f8fafc);color:var(--text,#0f172a);isolation:isolate}
+.demo-login::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(480px circle at var(--spot-x) var(--spot-y),rgba(var(--spotlight-rgb),.1),transparent 70%)}
+.dark-mode .demo-login::before{background:radial-gradient(480px circle at var(--spot-x) var(--spot-y),rgba(var(--spotlight-rgb),.13),transparent 70%)}
 .demo-login[hidden]{display:none!important}
-.login-glow{position:fixed;pointer-events:none;border-radius:50%;filter:blur(70px);opacity:.28;animation:loginFloat 12s ease-in-out infinite alternate}
+.login-glow{position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(70px);opacity:.28;animation:loginFloat 12s ease-in-out infinite alternate}
 .login-glow-one{width:340px;height:340px;top:4%;left:8%;background:#8DB4D6}
 .login-glow-two{width:300px;height:300px;right:7%;bottom:4%;background:#A7B6D0;animation-delay:-4s}
-.login-card{position:relative;width:min(100%,560px);max-height:calc(100vh - 56px);overflow:auto;padding:clamp(22px,4vw,38px);border:1px solid var(--border,#d9e2ef);border-radius:26px;background:var(--surface,#fff);box-shadow:0 24px 90px rgba(15,30,58,.15);backdrop-filter:blur(18px)}
+.login-card{position:relative;z-index:1;width:min(100%,560px);max-height:calc(100vh - 56px);overflow:auto;padding:clamp(22px,4vw,38px);border:1px solid var(--border,#d9e2ef);border-radius:26px;background:var(--surface,#fff);box-shadow:0 24px 90px rgba(15,30,58,.15);backdrop-filter:blur(18px)}
 .login-brand{display:flex;align-items:center;gap:14px;margin-bottom:28px}
 .login-brand img{width:62px;height:62px;object-fit:contain;border-radius:14px}
 .login-brand span{font-size:11px;letter-spacing:.16em;font-weight:800;color:var(--muted,#52627a)}
-.login-card .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--primary,#8DB4D6);margin:0 0 8px}
+.login-card .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--primary-ink,#365D7D);margin:0 0 8px}
 .login-card h1{font-size:clamp(27px,5vw,36px);line-height:1.12;letter-spacing:-.04em;margin:0 0 12px}
 .login-subtitle{color:var(--muted,#52627a);font-size:14px;line-height:1.65;margin:0 0 22px}
 .login-card label{display:block;font-size:12px;font-weight:700;margin:14px 0 7px}

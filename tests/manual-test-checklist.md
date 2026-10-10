@@ -15,6 +15,9 @@ Run through this checklist in a browser after code changes.
 - [ ] Test at desktop width, tablet width, and a narrow mobile viewport.
 - [ ] Open and close the mobile sidebar and its backdrop.
 - [ ] Confirm reduced-motion preferences suppress decorative motion.
+- [ ] Move the pointer across the workspace and patient-selection screen; confirm the spotlight follows without obscuring text or controls.
+- [ ] Check spotlight color and visibility in both light and dark themes.
+- [ ] Confirm accent-colored small text and primary buttons remain readable in both themes.
 
 ## Interactions
 - [ ] Open/close the floating help panel and submit a sample question.
